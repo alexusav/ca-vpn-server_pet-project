@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if test -d /usr/share/easy-rsa && ! test -d /var/easy-rsa
+then
+	mkdir /var/easy-rsa
+        chmod +rw /var/easy-rsa
+        ln -s /usr/share/easy-rsa/* /var/easy-rsa/
+fi

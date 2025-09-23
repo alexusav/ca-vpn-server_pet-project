@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if test -d /var/easy-rsa
+then
+	rm -r /var/easy-rsa
+fi
