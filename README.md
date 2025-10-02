@@ -78,7 +78,7 @@ bash /var/easy-rsa/easyrsa gen-req <CompanyName> nopass
 #Подписание сгенерированного req файла
 bash /var/easy-rsa/easyrsa sign-req server <CompanyName>
 ```
-В результате выполненных команд получаем в директории /var/easy-rsa/pki/ публичный файл сертификата центра сертификации ca.crt  <br> В директории /var/easy-rsa/pki/issued публичный файл серверного сертификата <CompanyName>.crt  <br>  В директории /var/easy-rsa/pki/private приватный файл серверного сертификата <CompanyName>.key
+В результате выполненных команд получаем в директории /var/easy-rsa/pki/ публичный файл сертификата центра сертификации ca.crt  <br> В директории /var/easy-rsa/pki/issued публичный файл серверного сертификата \<CompanyName\>.crt  <br>  В директории /var/easy-rsa/pki/private приватный файл серверного сертификата \<CompanyName\>.key
 
 **2. Вариант** Запустить скрипт ca-server/ca-config.sh, который установит easy-rsa и выполнит настройку конфигурационных файлов автоматически.
 
@@ -89,7 +89,7 @@ bash /var/easy-rsa/easyrsa gen-req <ClientName> nopass
 #Подписание сгенерированного req файла
 bash /var/easy-rsa/easyrsa sign-req client <ClientName>
 ```
-В результате получаем: <br> /var/easy-rsa/pki/issued/<ClientName>.crt <br> /var/easy-rsa/pki/private/<ClientName>.key
+В результате получаем: <br> /var/easy-rsa/pki/issued/\<ClientName\>.crt <br> /var/easy-rsa/pki/private/\<ClientName\>.key
 
 Полученные файлы сертификатов необходимо в дальнейшем передать на VPN сервер.
 
@@ -103,6 +103,19 @@ bash /var/easy-rsa/easyrsa sign-req client <ClientName>
 **2. Вариант** Запустить скрипт vpn-server/vpn-server-config.sh 
 
 
-```bash
+После выполнения одного из вариантов, необходимо скопировать сертификаты ca.crt, \<CompanyName\>.crt (переименовав этот файл в server.crt), \<CompanyName\>.key (переименовав этот файл в server.key) в директорию /etc/openvpn/server/
 
+Далее требуется сгенерировать tls-crypt-v2 ключ используя команду:
 ```
+cd /etc/openvpn/server/
+sudo openvpn --genkey --secret ta.key
+```
+Теперь сервер VPN готов к работе. Чтобы сгенерировать файл настроек для клиента необходимо скопировать выданный сервером CA сертификат и приватный ключ клиента в директорию /etc/openvpn/client и запустить скрипт из этой же директории, передав имя клиента (название файла сертификата клиента):
+```
+sudo /etc/openvpn/client/make_config.sh <ClientName>
+```
+
+Получаем готовый файл /etc/openvpn/client/\<ClientName\>.ovpn <br>
+Этот файл необходимо передать клиенту для подключения к сервру VPN.
+
+
