@@ -72,7 +72,7 @@ iptables -P INPUT DROP
 iptables -P FORWARD DROP
 
 service iptables-persistent save
-
+service netfilter-persistent save
 
 
 

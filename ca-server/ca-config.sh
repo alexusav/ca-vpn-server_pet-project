@@ -98,7 +98,8 @@ fi
 #Start create servers crt
 if test -d "/var/easy-rsa/pki"
 then
-	if bash /var/easy-rsa/easyrsa gen-req MyCompany nopass
+	#if bash /var/easy-rsa/easyrsa gen-req MyCompany nopass
+	if bash /var/easy-rsa/easyrsa --subject-alt-name="DNS:ca.mycompany.ru,DNS:ca.mycompany.ru,DNS:localhost,IP:10.130.0.8,IP:127.0.0.1" build-server-full ca.mycompany.ru nopass
 	then 
 		echo "Creation req SUCCESSFUL +++++++++++"
 		
