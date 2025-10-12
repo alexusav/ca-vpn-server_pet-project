@@ -110,6 +110,9 @@ iptables -A FORWARD -i eth0 -o tun+ -m state --state RELATED,ESTABLISHED -j ACCE
 # NAT the VPN client traffic to the interface
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE -m comment --comment openvpn
 
+service iptables-persistent save
+service netfilter-persistent save
+
 # Restart openvpn-server
 sudo systemctl restart openvpn-server@server.service
 sudo systemctl enable openvpn-server@server.service
