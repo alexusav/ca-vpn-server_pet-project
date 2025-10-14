@@ -128,6 +128,21 @@ prometheus-nginx-exporter-0.10.0_1ubuntu0.1-1_all.deb
   
 Необходимые для безопасного обращения к серверам за данными мониторинга.
 
+**На всех серверах необходимо дописать в /etc/hosts имена всех сервреров инфраструктуры.**
+**Устновить на сервер CA пакет prometheus-node-exporter-ca-1.3.1_1ubuntu0.22.04.3-1_all.deb**
+**Устновить на сервер VPN пакет prometheus-node-exporter-vpn-1.3.1_1ubuntu0.22.04.3-1_all.deb и prometheus-openvpn-exporter_0.3.0-1_all.deb**
+
+После установки пакетов exporter на CA и VPN сервере скопировать в директорию /opt/node_exporter сертификаты:
+
+**CA сервер:**
+- ca.\<CompanyName\>.crt 
+- ca.\<CompanyName\>.key
+  
+**VPN сервер:**
+- vpn.\<CompanyName\>.crt
+- vpn.\<CompanyName\>.key
+
+
 
 
 
