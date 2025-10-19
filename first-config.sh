@@ -60,6 +60,7 @@ iptables -A OUTPUT -p udp --dport 53 -j ACCEPT -m comment --comment dns
 iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -p icmp -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -p tcp --dport 2222 -j ACCEPT -m comment --comment ssh
+iptables -I OUTPUT -p tcp --dport 2222 -j ACCEPT -m comment --comment ssh_to_lan
 iptables -A OUTPUT -p tcp -m multiport --dports 443,80 -j ACCEPT
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT

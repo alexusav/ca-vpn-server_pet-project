@@ -35,6 +35,7 @@ done
 
 iptables -I INPUT -p tcp --dport 9090 -j ACCEPT -m comment --comment prometheus
 iptables -I INPUT -p tcp -m multiport --dports 80,8080 -j ACCEPT -m comment --comment http
+iptables -I INPUT -p tcp --dport 443 -j ACCEPT -m comment --comment https
 iptables -I INPUT -p tcp -s 10.130.0.7 --dport 9100 -j ACCEPT -m comment --comment prometheus_node_exporter
 iptables -I OUTPUT -p tcp -d 10.130.0.0/24 --dport 9100 -j ACCEPT -m comment --comment Prometheus_node_exporter
 iptables -I OUTPUT -p tcp -d 10.130.0.0/24 --dport 9176 -j ACCEPT -m comment --comment prometheus_openvpn_exporter
